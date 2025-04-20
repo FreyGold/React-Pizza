@@ -13,28 +13,29 @@ import Error from "./ui/Error";
 const router = createBrowserRouter(
   [
     {
+      path: "/", // This is important
       element: <AppLayout />,
       errorElement: <Error />,
       children: [
-        { path: "/", element: <Home /> },
+        { index: true, element: <Home /> }, // Use index: true for home route
         {
-          path: "/menu",
+          path: "menu", // Remove leading slash
           element: <Menu />,
           loader: menuLoader,
           errorElement: <Error />,
         },
-        { path: "/cart", element: <Cart /> },
+        { path: "cart", element: <Cart /> }, // Remove leading slash
         {
-          path: "/order/new",
+          path: "order/new", // Remove leading slash
           element: <CreateOrder />,
           action: createOrderAction,
         },
-        { path: "/order/:orderId", element: <Order />, loader: orderLoader },
+        { path: "order/:orderId", element: <Order />, loader: orderLoader }, // Remove leading slash
       ],
     },
   ],
   {
-    basename: "/React-Pizza", // This should be the second argument to createBrowserRouter
+    basename: "/React-Pizza", // No trailing slash here
   },
 );
 
