@@ -10,32 +10,34 @@ import CreateOrder, {
 import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      element: <AppLayout />,
+      errorElement: <Error />,
+      children: [
+        { path: "/", element: <Home /> },
+        {
+          path: "/menu",
+          element: <Menu />,
+          loader: menuLoader,
+          errorElement: <Error />,
+        },
+        { path: "/cart", element: <Cart /> },
+        {
+          path: "/order/new",
+          element: <CreateOrder />,
+          action: createOrderAction,
+        },
+        { path: "/order/:orderId", element: <Order />, loader: orderLoader },
+      ],
+    },
+  ],
   {
-    element: <AppLayout />,
-    errorElement: <Error />,
-    children: [
-      { path: "/", element: <Home /> },
+    basename: "/React-Pizza", // This should be the second argument to createBrowserRouter
+  },
+);
 
-      {
-        path: "/menu",
-        element: <Menu />,
-        loader: menuLoader,
-        errorElement: <Error />,
-      },
-      { path: "/cart", element: <Cart /> },
-      {
-        path: "/order/new",
-        element: <CreateOrder />,
-        action: createOrderAction,
-      },
-      { path: "/order/:orderId", element: <Order />, loader: orderLoader },
-    ],
-  },
-  {
-    basename: "/React-Pizza", // Moved here as a second argument
-  },
-]);
 function App() {
   return <RouterProvider router={router} />;
 }
