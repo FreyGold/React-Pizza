@@ -13,6 +13,9 @@ import {
 function Order() {
   const order = useLoaderData();
 
+  if (!order) {
+    throw new Error("No Order With this id was found");
+  }
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
   const {
     id,
@@ -78,6 +81,8 @@ function Order() {
 }
 
 export async function loader({ params }) {
+  if (params.orderId.startWith("#"))
+    throw new Error("order id can't start with #");
   const order = await getOrder(params.orderId);
   return order;
 }
