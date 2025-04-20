@@ -81,8 +81,6 @@ function Order() {
 }
 
 export async function loader({ params }) {
-  if (params.orderId.startWith("#"))
-    throw new Error("order id can't start with #");
   const order = await getOrder(params.orderId);
   return order;
 }
