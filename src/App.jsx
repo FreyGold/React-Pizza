@@ -31,7 +31,9 @@ const router = createBrowserRouter([
       },
       { path: "/order/:orderId", element: <Order />, loader: orderLoader },
     ],
-    basename: "/React-Pizza",
+  },
+  {
+    basename: "/React-Pizza", // Moved here as a second argument
   },
 ]);
 function App() {
